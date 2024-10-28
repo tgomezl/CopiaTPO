@@ -16,6 +16,7 @@ public class Unidad {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name="identificador")
 	private int id;
+	
 	private String piso;
 	private String numero;
 	private boolean habitado;
@@ -45,9 +46,11 @@ public class Unidad {
     )
 	private List<Persona> inquilinos;
 
-	
+	//----------------------------------------------------------
 	public Unidad(){
-
+		this.habitado = false;
+		this.duenios = new ArrayList<Persona>();
+		this.inquilinos = new ArrayList<Persona>();
 	}
 	
 	public Unidad( String piso, String numero, Edificio edificio) {
@@ -123,6 +126,25 @@ public class Unidad {
 	public List<Persona> getInquilinos() {
 		return inquilinos;
 	}
+	
+	
+	//----------------------------------------------------------
+
+	public void setPiso(String piso) {
+		this.piso = piso;
+	}
+
+	public void setNumero(String numero) {
+		this.numero = numero;
+	}
+
+	public boolean isHabitado() {
+		return habitado;
+	}
+
+	public void setHabitado(boolean habitado) {
+		this.habitado = habitado;
+	}
 
 	public UnidadView toView() {
 		EdificioView auxEdificio = edificio.toView();
@@ -133,6 +155,10 @@ public class Unidad {
 	public String toString() {
 		return "Unidad [id=" + id + ", piso=" + piso + ", numero=" + numero + ", habitado=" + habitado + ", edificio="
 				+ edificio + "]";
+	}
+
+	public void setEdificio(Edificio edificio) {
+		this.edificio = edificio;
 	}
 	
 	

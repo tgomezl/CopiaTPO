@@ -9,18 +9,23 @@ public class Imagen {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int numero;
+	
 	@Column(name = "path")
 	private String direccion;
+	
 	@Column(name = "tipo")
 	private String tipo;
+	//----------------------------------------------------------
 
+	public Imagen(){
+		
+	}
 
-	public Imagen(){}
 	public Imagen(String direccion, String tipo) {
 		this.direccion = direccion;
 		this.tipo = tipo;
 	}
-
+	//----------------------------------------------------------
 	public int getNumero() {
 		return numero;
 	}

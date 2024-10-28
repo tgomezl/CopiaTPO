@@ -29,11 +29,12 @@ public class Edificio {
 	@JoinColumn(name = "identificador")
 	private List<Unidad> unidades=new ArrayList<Unidad>();
 	*/
-	@OneToMany(mappedBy = "edificio", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@OneToMany(mappedBy = "edificio", fetch = FetchType.EAGER)
     private List<Unidad> unidades=new ArrayList<Unidad>();
 
+	//----------------------------------------------------------
 	public Edificio(){
-
+		unidades = new ArrayList<Unidad>();
 	}
 	public Edificio( String nombre, String direccion) {
 		
@@ -41,7 +42,7 @@ public class Edificio {
 		this.direccion = direccion;
 		unidades = new ArrayList<Unidad>();
 	}
-	
+	//----------------------------------------------------------
 	public void agregarUnidad(Unidad unidad) {
 		unidades.add(unidad);
 	}
@@ -102,7 +103,18 @@ public class Edificio {
 		}
 		return resultado;
 	}
+	
+	
 
+	public void setCodigo(int codigo) {
+		this.codigo = codigo;
+	}
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
+	}
+	public void setDireccion(String direccion) {
+		this.direccion = direccion;
+	}
 	@Override
 	public String toString() {
 		return "Edificio{" +

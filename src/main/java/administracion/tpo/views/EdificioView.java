@@ -1,5 +1,7 @@
 package administracion.tpo.views;
 
+import administracion.tpo.modelo.Edificio;
+
 public class EdificioView {
 
 	private int codigo;
@@ -12,6 +14,12 @@ public class EdificioView {
 		this.codigo = codigo;
 		this.nombre = nombre;
 		this.direccion = direccion;
+	}
+	
+	public EdificioView(Edificio edi) {
+		this.codigo = edi.getCodigo();
+		this.nombre = edi.getNombre();
+		this.direccion = edi.getDireccion();
 	}
 
 	public int getCodigo() {

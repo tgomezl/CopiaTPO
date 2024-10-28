@@ -1,5 +1,7 @@
 package administracion.tpo.views;
 
+import administracion.tpo.modelo.Unidad;
+
 public class UnidadView {
 
 	private int id;
@@ -16,6 +18,15 @@ public class UnidadView {
 		this.numero = numero;
 		this.habitado = habitado;
 		this.edificio = edificio;
+	}
+	
+	public UnidadView(Unidad unidad) {
+		
+		this.id = unidad.getId();
+		this.piso = unidad.getPiso();
+		this.numero = unidad.getNumero();
+		this.habitado = unidad.estaHabitado();
+		this.edificio = new EdificioView(unidad.getEdificio());
 	}
 
 	public int getId() {

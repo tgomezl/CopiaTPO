@@ -37,19 +37,18 @@ public class Reclamo {
 	
 	@Column(name = "imagen")
 	@OneToMany
-	@JoinColumn(name = "imagen_numero")
+	@JoinColumn(name = "id_reclamo")
 	private List<Imagen> imagenes;
 	
-	//fijarse si realmente sirve. Sino, sacarlo
-	private int idtiporeclamo;
 	
 	public void setUsuario(Persona usuario) {
 		this.usuario = usuario;
 	}
 	
-	
+	//----------------------------------------------------------
 	public Reclamo(){
-
+		imagenes = new ArrayList<Imagen>();
+		this.estado = Estado.nuevo; //OJO
 	}
 	
 	
@@ -60,10 +59,9 @@ public class Reclamo {
 		this.descripcion = descripcion;
 		this.unidad = unidad;
 		this.estado = Estado.nuevo;
-		this.idtiporeclamo=idtiporeclamo;
 		imagenes = new ArrayList<Imagen>();
 	}
-
+	//----------------------------------------------------------
 	public void agregarImagen(String direccion, String tipo) {
 		Imagen imagen = new Imagen(direccion, tipo);
 		imagenes.add(imagen);
@@ -122,18 +120,39 @@ public class Reclamo {
 	public String toString() {
 		return "Reclamo [idreclamo=" + idreclamo + ", usuario=" + usuario + ", edificio=" + edificio + ", ubicacion="
 				+ ubicacion + ", unidad=" + unidad + ", descripcion=" + descripcion + ", estado=" + estado
-				+ ", imagenes=" + imagenes + ", idtiporeclamo=" + idtiporeclamo + "]";
+				+ ", imagenes=" + imagenes;
 	}
 
 
-	public int getIdtiporeclamo() {
-		return idtiporeclamo;
+	public int getIdreclamo() {
+		return idreclamo;
 	}
 
-
-	public void setIdtiporeclamo(int idtiporeclamo) {
-		this.idtiporeclamo = idtiporeclamo;
+	public void setIdreclamo(int idreclamo) {
+		this.idreclamo = idreclamo;
 	}
+
+	public void setEdificio(Edificio edificio) {
+		this.edificio = edificio;
+	}
+
+	public void setUbicacion(String ubicacion) {
+		this.ubicacion = ubicacion;
+	}
+
+	public void setUnidad(Unidad unidad) {
+		this.unidad = unidad;
+	}
+
+	public void setDescripcion(String descripcion) {
+		this.descripcion = descripcion;
+	}
+
+	public void setEstado(Estado estado) {
+		this.estado = estado;
+	}
+	
+	
 	
 	
 }

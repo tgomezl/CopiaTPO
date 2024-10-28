@@ -11,8 +11,6 @@ import java.util.Optional;
 public class UnidadDAO {
     private static UnidadDAO instance;
 
-
-
     private UnidadDAO(){
     }
 

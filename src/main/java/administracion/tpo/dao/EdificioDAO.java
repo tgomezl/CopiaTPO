@@ -44,5 +44,11 @@ public class EdificioDAO {
         	iRepositoryEdificio.save(ed);
         }
     }
+    public void update(Edificio ed,IRepositoryEdificio iRepositoryEdificio, Integer id){
+        if (iRepositoryEdificio.existsById(id)){
+        	ed.setCodigo(id);//mismo codigo
+        	iRepositoryEdificio.save(ed);
+        }
+    }
 
 }

@@ -1,10 +1,12 @@
 package administracion.tpo.modelo;
 
 import administracion.tpo.views.EdificioView;
+import administracion.tpo.views.UnidadView;
 import jakarta.persistence.*;
 
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
@@ -125,6 +127,14 @@ public class Edificio {
 	}
 
 	public EdificioView toView() {
-		return new EdificioView(codigo, nombre, direccion);
+		//List<UnidadView>unidadesview=this.getUnidadesView(); 
+		return new EdificioView(this);
+	}
+	public List<UnidadView> getUnidadesView() {
+		List<UnidadView> unidadesview=new ArrayList<UnidadView>();
+		for(Unidad u:unidades) {
+			unidadesview.add( u.toView() );  //?
+		}
+		return unidadesview;
 	}
 }

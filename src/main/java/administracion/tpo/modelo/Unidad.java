@@ -14,7 +14,7 @@ public class Unidad {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(name="identificador")
+	@Column(name="id_unidad")
 	private int id;
 	
 	private String piso;
@@ -33,7 +33,7 @@ public class Unidad {
 	@ManyToMany(fetch= FetchType.EAGER)
     @JoinTable(
         name = "duenios",
-        joinColumns = @JoinColumn(name = "identificador"),
+        joinColumns = @JoinColumn(name = "id_unidad"),
         inverseJoinColumns = @JoinColumn(name = "documento")
     )
 	private List<Persona> duenios;
@@ -41,7 +41,7 @@ public class Unidad {
 	@ManyToMany(fetch= FetchType.EAGER)
     @JoinTable(
         name = "inquilinos",
-        joinColumns = @JoinColumn(name = "identificador"),
+        joinColumns = @JoinColumn(name = "id_unidad"),
         inverseJoinColumns = @JoinColumn(name = "documento")
     )
 	private List<Persona> inquilinos;
@@ -147,8 +147,8 @@ public class Unidad {
 	}
 
 	public UnidadView toView() {
-		EdificioView auxEdificio = edificio.toView();
-		return new UnidadView(id, piso, numero, habitado, auxEdificio);
+		//EdificioView auxEdificio = edificio.toView();
+		return new UnidadView(id, piso, numero, habitado,edificio.getCodigo());
 	}
 	
 	@Override

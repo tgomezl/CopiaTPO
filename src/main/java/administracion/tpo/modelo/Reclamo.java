@@ -1,13 +1,17 @@
 package administracion.tpo.modelo;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import administracion.tpo.views.ReclamoView;
 import jakarta.persistence.*;
 
 @Entity
 @Table(name="reclamos")
-public class Reclamo {
+
+public class Reclamo implements Serializable {
+    private static final long serialVersionUID = 1L; // Recommended for Serializable classes
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
@@ -18,13 +22,13 @@ public class Reclamo {
 	private Persona usuario;
 	
 	@ManyToOne
-	@JoinColumn(name="codigo")
+	@JoinColumn(name="id_edificio")
 	private Edificio edificio;
 	
 	private String ubicacion;
 	
 	@ManyToOne
-	@JoinColumn(name = "identificador")
+	@JoinColumn(name = "id_unidad")
 	private Unidad unidad;
 	
 	private String descripcion;
@@ -150,6 +154,12 @@ public class Reclamo {
 
 	public void setEstado(Estado estado) {
 		this.estado = estado;
+	}
+
+	public ReclamoView toView() {
+		// TODO Auto-generated method stub
+		
+		return new ReclamoView(this.descripcion, this.estado, this.ubicacion, this.unidad, this.usuario);
 	}
 	
 	

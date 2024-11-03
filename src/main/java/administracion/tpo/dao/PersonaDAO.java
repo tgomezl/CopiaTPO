@@ -29,11 +29,11 @@ public class PersonaDAO {
     }
 
     public void save(Persona persona, IRepositoryPersona iRepositoryPersona){
-    iRepositoryPersona.save(persona);
+    	iRepositoryPersona.save(persona);
     }
 
     public void delete(String documento, IRepositoryPersona iRepositoryPersona){
-        iRepositoryPersona.deleteById(documento);
+    	iRepositoryPersona.deleteById(documento);
     }
     
     public void update(Persona p, IRepositoryPersona iRepositoryPersona){

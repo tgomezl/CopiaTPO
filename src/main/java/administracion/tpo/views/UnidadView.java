@@ -8,7 +8,8 @@ public class UnidadView {
 	private String piso;
 	private String numero;
 	private boolean habitado;
-	private EdificioView edificio;
+	//private EdificioView edificio;
+	private Integer idedificio;
 	
 	public UnidadView() {}
 
@@ -17,7 +18,15 @@ public class UnidadView {
 		this.piso = piso;
 		this.numero = numero;
 		this.habitado = habitado;
-		this.edificio = edificio;
+		//this.edificio = edificio;
+	}
+	public UnidadView(int id, String piso, String numero, boolean habitado, Integer codigoedificio) {
+		this.id = id;
+		this.piso = piso;
+		this.numero = numero;
+		this.habitado = habitado;
+		//this.edificio = edificio;
+		idedificio=codigoedificio;
 	}
 	
 	public UnidadView(Unidad unidad) {
@@ -26,7 +35,7 @@ public class UnidadView {
 		this.piso = unidad.getPiso();
 		this.numero = unidad.getNumero();
 		this.habitado = unidad.estaHabitado();
-		this.edificio = new EdificioView(unidad.getEdificio());
+		//this.edificio = new EdificioView(unidad.getEdificio());
 	}
 
 	public int getId() {
@@ -61,6 +70,7 @@ public class UnidadView {
 		this.habitado = habitado;
 	}
 
+	/*
 	public EdificioView getEdificio() {
 		return edificio;
 	}
@@ -68,8 +78,18 @@ public class UnidadView {
 	public void setEdificio(EdificioView edificio) {
 		this.edificio = edificio;
 	}
-	
+	*/
 	public String toString() {
 		return piso + " " + numero;
 	}
+
+	public Integer getIdedificio() {
+		return idedificio;
+	}
+
+	public void setIdedificio(Integer idedificio) {
+		this.idedificio = idedificio;
+	}
+	
+	
 }

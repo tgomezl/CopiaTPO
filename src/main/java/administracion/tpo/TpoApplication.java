@@ -175,6 +175,7 @@ public class TpoApplication implements CommandLineRunner {
 		img.setDireccion("el path");
 		img.setTipo("jpg");
 		agregarImagenAReclamo(reclamo3, img);
+		//otra imagen
 		Imagen imgdos=new Imagen();
 		imgdos.setDireccion("otro path");
 		imgdos.setTipo("jpg");

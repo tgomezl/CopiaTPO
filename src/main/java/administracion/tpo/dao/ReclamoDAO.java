@@ -12,6 +12,7 @@ import administracion.tpo.repository.IRepositoryPersona;
 import administracion.tpo.repository.IRepositoryReclamo;
 import administracion.tpo.repository.IRepositoryUnidad;
 import administracion.tpo.views.CrearReclamoView;
+import administracion.tpo.views.EstadoReclamoView;
 
 import java.util.Collections;
 import java.util.List;
@@ -173,6 +174,17 @@ public class ReclamoDAO {
 	    }
 	    System.out.println("   el reclamo no existe");
 		return null;
+	}
+
+	public Reclamo cambiarestado(IRepositoryReclamo repositorioreclamo, EstadoReclamoView estadoreclamoview) {
+		// TODO Auto-generated method stub
+		Optional<Reclamo> buscado=repositorioreclamo.findById(estadoreclamoview.getIdreclamo());
+	    if(buscado.isPresent()) {
+	    	Reclamo encontrado=buscado.get();
+	    	encontrado.setEstado(estadoreclamoview.getEstado());
+	    	return repositorioreclamo.save(encontrado);
+	    }
+	    return null;
 	}
     
     

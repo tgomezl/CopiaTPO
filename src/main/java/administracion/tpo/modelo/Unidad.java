@@ -148,7 +148,7 @@ public class Unidad {
 
 	public UnidadView toView() {
 		//EdificioView auxEdificio = edificio.toView();
-		return new UnidadView(id, piso, numero, habitado,edificio.getCodigo());
+		return new UnidadView(id, piso, numero, habitado,edificio.getCodigo(),duenios, inquilinos);
 	}
 	
 	@Override

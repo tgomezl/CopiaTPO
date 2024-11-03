@@ -18,8 +18,10 @@ import administracion.tpo.dao.UnidadDAO;
 import administracion.tpo.modelo.Edificio;
 import administracion.tpo.modelo.Unidad;
 import administracion.tpo.repository.IRepositoryEdificio;
+import administracion.tpo.repository.IRepositoryPersona;
 import administracion.tpo.repository.IRepositoryUnidad;
 import administracion.tpo.views.EdificioView;
+import administracion.tpo.views.UnidadPersonaView;
 import administracion.tpo.views.UnidadView;
 
 @RestController
@@ -33,12 +35,15 @@ public class UnidadController {
 	@Autowired
 	 IRepositoryEdificio repositoryEdificio;
 	
+	@Autowired
+	IRepositoryPersona repopersona;
+	
 	@GetMapping
 	public List<UnidadView> getAll() {
 		List<Unidad> unidades=UnidadDAO.getInstance().getAll(repositoriounidad);
 		List<UnidadView> unidadesview=new ArrayList<UnidadView>();
 		for(Unidad e:unidades) {
-			unidadesview.add(e.toView());
+			unidadesview.add(new UnidadView(e));
 		}
 		return unidadesview;
 	}
@@ -62,9 +67,11 @@ public class UnidadController {
 		Optional<Unidad> e =UnidadDAO.getInstance().getById(id, repositoriounidad);
 		if(e.isPresent()) {
 			Unidad ed=e.get();
-			UnidadView edview=ed.toView();
 			
-			return edview;
+			//UnidadView edview=ed.toView();
+			UnidadView uniview=new UnidadView(ed);
+			
+			return uniview;
 			//return ed;
 		}else {
 			System.out.println("no existe esa unidad");
@@ -77,7 +84,7 @@ public class UnidadController {
 	public UnidadView createUnidad(@PathVariable("idedificio") int id,@RequestBody Unidad uni) {
 		Unidad creada=UnidadDAO.getInstance().crearUnidad(id ,uni, repositoriounidad,repositoryEdificio);
 		if(creada!=null) {
-			return creada.toView();
+			return new UnidadView(creada);
 		}
 		return null;
 	}
@@ -93,5 +100,31 @@ public class UnidadController {
 		//tablas: alquila y duenios
 		//liberar persona-unidad
 		//liberar edificio-unidad???
-
+	@PostMapping("/alquilar")
+	public UnidadView crearAlquiler(@RequestBody UnidadPersonaView uniper) {
+		Unidad creada=UnidadDAO.getInstance().crearAlquiler(uniper, repositoriounidad,repopersona);
+		if(creada!=null) {
+			return new UnidadView(creada);
+		}
+		return null;
+	}
+	
+	@PostMapping("/comprar")
+	public UnidadView crearCompra(@RequestBody UnidadPersonaView uniper) {
+		Unidad creada=UnidadDAO.getInstance().crearCompra(uniper, repositoriounidad,repopersona);
+		if(creada!=null) {
+			return new UnidadView(creada);
+		}
+		return null;
+	}
+	
+	@PostMapping("/liberarunidad")
+	public UnidadView liberarunidad(@RequestBody UnidadPersonaView uniper) {
+		Unidad creada=UnidadDAO.getInstance().liberarunidad(uniper, repositoriounidad);
+		if(creada!=null) {
+			return new UnidadView(creada);
+		}
+		return null;
+	}
+	
 }

@@ -133,7 +133,7 @@ public class Edificio {
 	public List<UnidadView> getUnidadesView() {
 		List<UnidadView> unidadesview=new ArrayList<UnidadView>();
 		for(Unidad u:unidades) {
-			unidadesview.add( u.toView() );  //?
+			unidadesview.add( new UnidadView(u) );  //?
 		}
 		return unidadesview;
 	}

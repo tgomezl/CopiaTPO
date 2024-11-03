@@ -1,5 +1,9 @@
 package administracion.tpo.views;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import administracion.tpo.modelo.Persona;
 import administracion.tpo.modelo.Unidad;
 
 public class UnidadView {
@@ -10,6 +14,8 @@ public class UnidadView {
 	private boolean habitado;
 	//private EdificioView edificio;
 	private Integer idedificio;
+	List<Persona> inquilinos=new ArrayList<Persona>();
+	List<Persona> duenios=new ArrayList<Persona>();
 	
 	public UnidadView() {}
 
@@ -27,6 +33,7 @@ public class UnidadView {
 		this.habitado = habitado;
 		//this.edificio = edificio;
 		idedificio=codigoedificio;
+		
 	}
 	
 	public UnidadView(Unidad unidad) {
@@ -36,6 +43,20 @@ public class UnidadView {
 		this.numero = unidad.getNumero();
 		this.habitado = unidad.estaHabitado();
 		//this.edificio = new EdificioView(unidad.getEdificio());
+		inquilinos=unidad.getInquilinos();
+		duenios=unidad.getDuenios();
+	}
+
+	public UnidadView(int id2, String piso2, String numero2, boolean habitado2, int codigoedificio, List<Persona> duenios,
+			List<Persona> inquilinos) {
+		this.id = id;
+		this.piso = piso;
+		this.numero = numero;
+		this.habitado = habitado;
+		//this.edificio = edificio;
+		idedificio=codigoedificio;
+		inquilinos=inquilinos;
+		duenios=duenios;
 	}
 
 	public int getId() {
@@ -89,6 +110,22 @@ public class UnidadView {
 
 	public void setIdedificio(Integer idedificio) {
 		this.idedificio = idedificio;
+	}
+
+	public List<Persona> getInquilinos() {
+		return inquilinos;
+	}
+
+	public void setInquilinos(List<Persona> inquilinos) {
+		this.inquilinos = inquilinos;
+	}
+
+	public List<Persona> getDuenios() {
+		return duenios;
+	}
+
+	public void setDuenios(List<Persona> duenios) {
+		this.duenios = duenios;
 	}
 	
 	

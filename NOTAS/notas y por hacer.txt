@@ -11,9 +11,12 @@ cuidado con las tablas alquila y duenio
 FALTA:
 ********
 me falta un método para iniciar sesión.OK
-otro para cambiar el estado de los reclamos.TODO
-otro para filtrar los reclamos por estado
-	crear el nexo entre persona + unidad (dueño o inquilono)
+	RECLAMOS:
+		cambiar el estado de los reclamos.ADMIN
+		filtrar los reclamos por estado. 
+	OTRO:crear el nexo entre persona + unidad (dueño o inquilono)	
+	liberarunidad()
+
 
 /****** SQL ******/
 select * from unidades

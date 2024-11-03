@@ -34,6 +34,7 @@ import administracion.tpo.repository.IRepositoryPersona;
 import administracion.tpo.repository.IRepositoryReclamo;
 import administracion.tpo.repository.IRepositoryUnidad;
 import administracion.tpo.views.CrearReclamoView;
+import administracion.tpo.views.EstadoReclamoView;
 import administracion.tpo.views.ReclamoView;
 import administracion.tpo.views.UnidadView;
 
@@ -108,42 +109,25 @@ public class ReclamoController {
 		return ReclamoDAO.getInstance().addImagen(imagenrepo, repositorioreclamo, idreclamo,cloudinary,file);
 		
 	}
-	/*
-	@PutMapping("/{idreclamo}")
-	public ResponseEntity<String> subir(@RequestBody MultipartFile file) {
+	
+	@PutMapping
+	public Reclamo cambiarestado(@RequestBody EstadoReclamoView estadoreclamoview) {
 		//TODA LA LOGICA DEBERIA ESTAR EN IMAGESERVICE!!!
+		Reclamo reclamo =ReclamoDAO.getInstance().cambiarestado(repositorioreclamo, estadoreclamoview );
+		if(reclamo!=null) {
+			reclamo.setEdificio(null);
+			reclamo.getUnidad().setEdificio(null);
+		}
 		
-		//la imagen real a cloudinary
-		//get la url
-		//la url se guarda en tabla imagenes
-		try {
-			//cloudinary.uploader().upload("my_picture.jpg", Collections.emptyMap());
-			 Map uploadResult=cloudinary.uploader().upload(file.getBytes(), Collections.emptyMap());
-			 String url = (String) uploadResult.get("url");
-			 
-			//String imageType = (String) uploadResult.get("format");
-			 String imageType="jpg";
-			 
-			 Imagen img=new Imagen();
-			 img.setDireccion(url);
-			 img.setTipo(imageType);
-			 
-			 imagenrepo.save(img);
-			 
-			 //String url = imgrepo.uploadImage(file);
-            return ResponseEntity.ok(url);
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Image upload failed");
-        }
+		return reclamo;
+		
 	}
 	
-	*/
 	// to do:
 		//
 		//cambiar estado de reclamo(SOLO ADMIN)
-		//INICIAR SESION!!!
 		//borrar reclamo??
-		//agregar imagen a un reclamo
+	
 	 
 	
 

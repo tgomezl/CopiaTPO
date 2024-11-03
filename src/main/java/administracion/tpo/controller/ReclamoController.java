@@ -1,24 +1,35 @@
 package administracion.tpo.controller;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
+
+import com.cloudinary.Cloudinary;
+import administracion.tpo.modelo.Persona;
 
 import administracion.tpo.dao.EdificioDAO;
 import administracion.tpo.dao.ReclamoDAO;
 import administracion.tpo.dao.UnidadDAO;
 import administracion.tpo.modelo.Edificio;
+import administracion.tpo.modelo.Imagen;
 import administracion.tpo.modelo.Reclamo;
 import administracion.tpo.modelo.Unidad;
 import administracion.tpo.repository.IRepositoryEdificio;
+import administracion.tpo.repository.IRepositoryImagen;
 import administracion.tpo.repository.IRepositoryPersona;
 import administracion.tpo.repository.IRepositoryReclamo;
 import administracion.tpo.repository.IRepositoryUnidad;
@@ -34,6 +45,12 @@ public class ReclamoController {
 	 IRepositoryReclamo repositorioreclamo;
 	
 	@Autowired
+	private Cloudinary cloudinary;
+	
+	@Autowired
+	private IRepositoryImagen imagenrepo;
+	
+	@Autowired
 	 IRepositoryEdificio repoedi;
 	
 	@Autowired
@@ -42,7 +59,7 @@ public class ReclamoController {
 	@Autowired
 	 IRepositoryUnidad repounidad;
 	
-	  @GetMapping("/{id}")
+	@GetMapping("/{id}")
 	public Reclamo getbyId(@PathVariable("id") int id) {
 		Optional<Reclamo> rec=ReclamoDAO.getInstance().getById(id, repositorioreclamo);
 		if(rec.isPresent()) {
@@ -85,15 +102,48 @@ public class ReclamoController {
 		return creado;// es null
 		
 	}
+	@PutMapping("/{idreclamo}")
+	public Reclamo subir(@PathVariable("idreclamo") int idreclamo,@RequestBody MultipartFile file) {
+		//TODA LA LOGICA DEBERIA ESTAR EN IMAGESERVICE!!!
+		return ReclamoDAO.getInstance().addImagen(imagenrepo, repositorioreclamo, idreclamo,cloudinary,file);
+		
+	}
+	/*
+	@PutMapping("/{idreclamo}")
+	public ResponseEntity<String> subir(@RequestBody MultipartFile file) {
+		//TODA LA LOGICA DEBERIA ESTAR EN IMAGESERVICE!!!
+		
+		//la imagen real a cloudinary
+		//get la url
+		//la url se guarda en tabla imagenes
+		try {
+			//cloudinary.uploader().upload("my_picture.jpg", Collections.emptyMap());
+			 Map uploadResult=cloudinary.uploader().upload(file.getBytes(), Collections.emptyMap());
+			 String url = (String) uploadResult.get("url");
+			 
+			//String imageType = (String) uploadResult.get("format");
+			 String imageType="jpg";
+			 
+			 Imagen img=new Imagen();
+			 img.setDireccion(url);
+			 img.setTipo(imageType);
+			 
+			 imagenrepo.save(img);
+			 
+			 //String url = imgrepo.uploadImage(file);
+            return ResponseEntity.ok(url);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Image upload failed");
+        }
+	}
 	
-	
+	*/
 	// to do:
-	// crear reclamo!!!
-	//cambiar estado de reclamo(SOLO ADMIN)
-	//INICIAR SESION!!!
-	//borrar reclamo??
-	
-
+		//
+		//cambiar estado de reclamo(SOLO ADMIN)
+		//INICIAR SESION!!!
+		//borrar reclamo??
+		//agregar imagen a un reclamo
 	 
 	
 

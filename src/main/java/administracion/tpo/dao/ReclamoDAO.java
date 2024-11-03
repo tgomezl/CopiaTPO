@@ -13,8 +13,15 @@ import administracion.tpo.repository.IRepositoryReclamo;
 import administracion.tpo.repository.IRepositoryUnidad;
 import administracion.tpo.views.CrearReclamoView;
 
+import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
+
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.multipart.MultipartFile;
+
+import com.cloudinary.Cloudinary;
 
 public class ReclamoDAO {
     private static ReclamoDAO instance;
@@ -132,6 +139,40 @@ public class ReclamoDAO {
 		System.out.println(" NO es dueño ni inquilino");
 		return false;
 		
+	}
+
+	public Reclamo addImagen(IRepositoryImagen imagenrepo, IRepositoryReclamo repositorioreclamo, 
+			int idreclamo, Cloudinary cloudinary,MultipartFile file) {
+		// TODO Auto-generated method stub
+		Optional<Reclamo> buscado=repositorioreclamo.findById(idreclamo);
+	    if(buscado.isPresent()) {
+	    	Reclamo encontrado=buscado.get();
+	    	try {
+				//cloudinary.uploader().upload("my_picture.jpg", Collections.emptyMap());
+				 Map uploadResult=cloudinary.uploader().upload(file.getBytes(), Collections.emptyMap());
+				 String url = (String) uploadResult.get("url");
+				 
+				//String imageType = (String) uploadResult.get("format");
+				 String imageType="jpg";
+				 
+				 Imagen img=new Imagen();
+				 img.setDireccion(url);
+				 img.setTipo(imageType);
+				 
+				 Imagen saved=imagenrepo.save(img);
+				 encontrado.getImagenes().add(saved); //add
+				 return repositorioreclamo.save(encontrado); 
+				
+	        } catch (Exception e) {
+	        	System.out.println(" ");
+	        	System.out.println(" ");
+	        	System.out.println("      -------------------------ERROR---------------------");
+	        	System.out.println(e.getMessage());
+	        	return null;
+	        }
+	    }
+	    System.out.println("   el reclamo no existe");
+		return null;
 	}
     
     

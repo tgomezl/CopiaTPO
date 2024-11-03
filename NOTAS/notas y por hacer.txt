@@ -1,0 +1,43 @@
+DUDAS:
+*************
+puedo borrar un edificio que tenga unidades?
+entiendo que no xq la tabla unidad esta apuntando a un edificio con id null
+
+puedo borrar una unidad?
+cuidado con las tablas alquila y duenio
+ OJO:además la unidad figura en la tabla reclamos
+
+
+FALTA:
+********
+me falta un método para iniciar sesión.OK
+otro para cambiar el estado de los reclamos.TODO
+otro para filtrar los reclamos por estado
+	crear el nexo entre persona + unidad (dueño o inquilono)
+
+/****** SQL ******/
+select * from unidades
+select * from edificios
+select * from duenios
+select * from inquilinos
+select * from personas
+select * from reclamos
+select * from imágenes
+
+********RESTRICCIONES************
+
+de la tabla unidades:
+no puedo borrar un edificio que tenga unidades
+
+de la tabla alquila:
+no puedo borrar una persona que sea inquilina
+no puedo borrar una unidad alquilada
+
+de la tabla duenios:
+no puedo borrar una persona que sea duenia
+no puedo borrar una unidad con duenio
+
+de la tabla reclamos:
+no puedo borrar una persona con reclamo iniciado			
+no puedo borrar un edificio con reclamo iniciado			
+no puedo borrar una unidad con reclamo iniciado			

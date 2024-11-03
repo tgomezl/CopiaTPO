@@ -28,8 +28,8 @@ public class PersonaDAO {
         return iRepositoryPersona.findById(documento);
     }
 
-    public void save(Persona persona, IRepositoryPersona iRepositoryPersona){
-    	iRepositoryPersona.save(persona);
+    public  Persona create (Persona persona, IRepositoryPersona iRepositoryPersona){
+    	return iRepositoryPersona.save(persona);
     }
 
     public void delete(String documento, IRepositoryPersona iRepositoryPersona){
@@ -41,6 +41,20 @@ public class PersonaDAO {
         	iRepositoryPersona.save(p);
         }
     }
+
+	public Persona iniciarSesion(Persona persona, IRepositoryPersona repositoriopersona) {
+		// TODO Auto-generated method stub
+		Optional<Persona> buscada=repositoriopersona.findById(persona.getDocumento());
+		if(buscada.isPresent()) {
+			Persona encontrada=buscada.get();
+			if(encontrada.getClave().equalsIgnoreCase(persona.getClave())) {
+				return encontrada;
+			}
+			System.out.println("clave incorrecta");
+		}
+		System.out.println("no existe esa persona en la bbdd");
+		return null;
+	}
 
 
 }

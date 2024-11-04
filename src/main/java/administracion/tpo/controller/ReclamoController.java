@@ -88,7 +88,6 @@ public class ReclamoController {
 		return reclamos;
 	}
 	
-
 	//Reclamo reclamo=crearReclamo("cochera","gotera en techo",p1,ed1,uni1);
 	
 	

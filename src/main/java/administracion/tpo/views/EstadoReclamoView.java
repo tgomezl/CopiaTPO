@@ -4,7 +4,7 @@ import administracion.tpo.modelo.Estado;
 
 public class EstadoReclamoView {
 	Integer idreclamo;
-	String estadoreclamo;
+	String estadoString;
 	Estado estado;
 	
 	public EstadoReclamoView() {
@@ -17,10 +17,10 @@ public class EstadoReclamoView {
 		this.idreclamo = idreclamo;
 	}
 	public String getEstadoreclamo() {
-		return estadoreclamo;
+		return estadoString;
 	}
 	public void setEstadoreclamo(String estadoreclamo) {
-		this.estadoreclamo = estadoreclamo;
+		this.estadoString = estadoreclamo;
 	}
 	public Estado getEstado() {
 		return estado;

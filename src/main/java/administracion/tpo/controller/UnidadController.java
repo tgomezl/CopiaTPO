@@ -54,7 +54,7 @@ public class UnidadController {
 		List<UnidadView> unidadesview=new ArrayList<UnidadView>();
 		for(Unidad e:unidades) {
 			if(!e.isHabitado()) {
-				unidadesview.add(e.toView());
+				unidadesview.add(new UnidadView(e));
 			}
 			
 		}
